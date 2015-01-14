@@ -1,6 +1,6 @@
 #include <string.h>
 
-#define INPUT_LIMIT 80
+static int input_limit = 80;
 
 /* #######################
  * Struct for string type.
@@ -92,8 +92,8 @@ string str_rnl(string str) {
  * ####################################################
  */
 string str_read() {
-  char* result = malloc(INPUT_LIMIT);
-  fgets(result, INPUT_LIMIT, stdin);
+  char* result = malloc(input_limit);
+  fgets(result, input_limit, stdin);
 
   return str_rnl(String(result));
 }
