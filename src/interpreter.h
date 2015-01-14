@@ -8,7 +8,7 @@ int interpret(int keep_running) {
     printf("Exiting Drill Interpreter\n");
     keep_running = 0;
   } else {
-    printf("\"%s\" is not recognized as an internal or external command!\n", user_input.data);
+    printf("\"%s\" is not recognized by Drill\n", user_input.data);
   }
 
   return keep_running;
