@@ -1,35 +1,17 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-/*
- * ### NOTE ###
- * Currently just repeats what you enter.
- */
+#include "string.h"
+#include "interpreter.h"
 
 void init() {
   printf("Drill Interpreter V0.0.1 \n\n");
 }
 
-char* read_string(length) {
-  char input[length];
-  char* result = malloc(sizeof(input));
-
-  fgets(input, sizeof(input), stdin);
-  strcpy(result, input);
-
-  return result;
-}
-
-void main() {
-  int run = 1;
+int main(int argc, char* argv[]) {
+  int keep_running = 1;
 
   init();
 
-  while(run){
-    printf("> ");
-    char* user = read_string(100);
-
-    printf("\nYou entered: %s", user);
-  }
+  while(interpret(keep_running));
 }
