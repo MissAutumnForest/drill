@@ -1,53 +1,27 @@
 #include <string.h>
 
-static int input_limit = 80;
-
-/* #######################
- * Struct for string type.
- * -----------------------
- * -> N/A
- * <- N/A
- * #######################
- */
-typedef struct {
-  char* data;
-  int length;
-} string;
-
-/* ######################################
- * Create a new string from char pointer.
- * --------------------------------------
- * -> char* str - Char pointer.
- * <- string res - Resulting string.
- * ######################################
- */
-string String(char* str) {
-  string res = {str, strlen(str)};
-  return res;
-}
-
 /* ################################################
- * remove parenthesis and replace them with a comma
+ * Remove parenthesis and replace them with a comma
  * and remove the last comma.
  * ------------------------------------------------
- * -> string str - String to be paramized.
- * <- string str - Resulting paramized string.
+ * -> char str - String to be paramized.
+ * <- char str - Resulting paramized string.
  * ################################################
  */
-string str_paramize(string str) {
+char* str_paramize(char* str) {
   int i;
   int has_comma = 0;
 
   // Replace all parenthesis with a comma.
-  for(i = 0; i < str.length; i++) {
-    if(str.data[i] == '(' || str.data[i] == ')') {
-      str.data[i] = ',';
+  for(i = 0; i < strlen(str); i++) {
+    if(str[i] == '(' || str[i] == ')') {
+      str[i] = ',';
     }
   }
 
   // Check if string even has a comma.
-  for(i = 0; i < str.length; i++) {
-    if(str.data[i] == ',') {
+  for(i = 0; i < strlen(str); i++) {
+    if(str[i] == ',') {
       has_comma = 1;
       break;
     }
@@ -56,12 +30,10 @@ string str_paramize(string str) {
   // Remove trailing comma and all character after it.
   // This only happens if the string contains at least one comma.
   if(has_comma) {
-    for(i = str.length; i > 0; i--) {
-      if(str.data[i] != ','){
-        str.data[i] = 0;
-      } else {
-        str.data[i] = 0;
-        break;
+    for(i = strlen(str); i > 0; i--) {
+      if(str[i] == ',') {
+        str[i+1] = '\0';
+        return str;
       }
     }
   }
@@ -69,45 +41,57 @@ string str_paramize(string str) {
   return str;
 }
 
-/* ########################
- * Remove trailing newline.
- * ------------------------
- * -> string str - String.
- * <- string str - Result.
- * ########################
- */
-string str_rnl(string str) {
-  if(str.data[str.length-1] == '\n') {
-    str.data[str.length-1] = '\0';
-  }
-
-  return str;
-}
-
-/* ####################################################
- * Reads characters from user, then converts to string.
- * ----------------------------------------------------
- * -> N/A
- * <- string N/A - Resulting string.
- * ####################################################
- */
-string str_read() {
-  char* result = malloc(input_limit);
-  fgets(result, input_limit, stdin);
-
-  return str_rnl(String(result));
-}
-
-/* ##############################################
- * Compares two strings to see if they are equal.
- * ----------------------------------------------
- * -> string str1 - First string.
- * -> string str2 - Second string.
+/* ########################################
+ * Compares two char pointers for equality.
+ * ----------------------------------------
+ * -> char* str1 - First pointer.
+ * -> char* str2 - Second pointer.
  * <- int N/A - True if equal, else false.
- * ##############################################
+ * ########################################
  */
-int str_cmp(string str1, string str2) {
-  int len = str1.length < str2.length ? str1.length : str2.length;
+int str_cmp(const char* str1, const char* str2) {
+  if(strlen(str1) != strlen(str2)) return 0;
+  return memcmp(str1, str2, strlen(str1)) == 0;
+}
 
-  return memcmp(str1.data, str2.data, len) == 0;
+/* #######################################
+ * Copies nth parameter of a char pointer.
+ * ---------------------------------------
+ * -> char* str - Input char pointer.
+ * -> char* out - Pointer to copy to.
+ * -> int nth - Nth parameter to return.
+ * <- char* out - Pointer copied to.
+ * #######################################
+ */
+char* strpar(const char* str, char* out, const int nth) {
+  int i, parc, delimc;
+
+  for(i = 0, parc = 0, delimc = 0; i < strlen(str); i++) {
+    if(str[i] == ',') {
+      if(delimc == nth) {
+        out[parc] = '\0';
+        return out;
+      }
+
+      delimc++;
+      i++;
+      parc = 0;
+    }
+    out[parc] = str[i];
+    parc++;
+  }
+  return out;
+}
+
+/* ############################################
+ * Convert a char pointer into an integer type.
+ * --------------------------------------------
+ * -> char* str - char* to be converted.
+ * <- long res - Resulting integer.
+ * ############################################
+ */
+long strcint(const char* str) {
+  int num;
+  char* ptr;
+  return strtol(str, &ptr, 10);
 }

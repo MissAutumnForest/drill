@@ -1,9 +1,4 @@
-/* ###########################################
- * Get nth parameter (if any) from user input.
- */
-string get_params(string str, int param) {
-  return str_paramize(str);
-}
+static int input_limit = 80;
 
 /* ###########################################
  * Interpret incomming commands from the user.
@@ -13,19 +8,40 @@ string get_params(string str, int param) {
  * ###########################################
  */
 int interpret(int keep_running) {
-  printf("> ");
-  string user_input = str_read(100);
-  string params = get_params(user_input, 0);
+  // Setup our two char pointers
+  char* user_input = malloc(input_limit * sizeof(char));
+  char* param = malloc(input_limit * sizeof(char));
 
-  if(str_cmp(params, String("exit"))) {
+  // Print terminal prefix.
+  printf("> ");
+  // Get user input and store it in our user_input pointer.
+  fgets(user_input, input_limit, stdin);
+
+  // Strip newline at the end of user input.
+  user_input[strlen(user_input) - 1] = '\0';
+  // Paramize our input to process as a command.
+  user_input = str_paramize(user_input);
+
+  // Check user input against various commands.
+  // EXIT COMMAND
+  if(str_cmp(strpar(user_input, param, 0), "exit")) {
     printf("Exiting Drill Interpreter\n");
     keep_running = 0;
   }
-  else if (str_cmp(params, String("hello"))) {
-    printf("HI!\n");
+  // ADD COMMAND
+  else if(str_cmp(strpar(user_input, param, 0), "add")) {
+    int add_param1 = strcint(strpar(user_input, param, 1));
+    int add_param2 = strcint(strpar(user_input, param, 2));
+    printf("%d\n", (add_param1 + add_param2));
+  }
+  // SUB COMMAND
+  else if(str_cmp(strpar(user_input, param, 0), "sub")) {
+    int sub_param1 = strcint(strpar(user_input, param, 1));
+    int sub_param2 = strcint(strpar(user_input, param, 2));
+    printf("%d\n", (sub_param1 - sub_param2));
   }
   else {
-    printf("\"%s\" is not recognized by Drill\n", params.data);
+    printf("\"%s\" is not recognized by Drill\n", strpar(user_input, param, 0));
   }
 
   return keep_running;
