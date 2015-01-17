@@ -29,32 +29,31 @@ int interpret(int keep_running) {
   }
 
   // ADD COMMAND
-  else if(str_cmp(strpar(user_input, param, 0), "add")) {
+  else if(str_cmp(strpar(user_input, param, 0), "add") || str_cmp(strpar(user_input, param, 0), "+")) {
     int add_param1 = strcint(strpar(user_input, param, 1));
     int add_param2 = strcint(strpar(user_input, param, 2));
     printf("%d\n", (add_param1 + add_param2));
   }
 
   // SUB COMMAND
-  else if(str_cmp(strpar(user_input, param, 0), "sub")) {
+  else if(str_cmp(strpar(user_input, param, 0), "sub") || str_cmp(strpar(user_input, param, 0), "-")) {
     int sub_param1 = strcint(strpar(user_input, param, 1));
     int sub_param2 = strcint(strpar(user_input, param, 2));
     printf("%d\n", (sub_param1 - sub_param2));
   }
   // MULT COMMAND
-  else if(str_cmp(strpar(user_input, param, 0), "mult")) {
+  else if(str_cmp(strpar(user_input, param, 0), "mult") || str_cmp(strpar(user_input, param, 0), "*")) {
     int mult_param1 = strcint(strpar(user_input, param, 1));
     int mult_param2 = strcint(strpar(user_input, param, 2));
     printf("%d\n", (mult_param1 * mult_param2));
   }
   // DIV COMMAND
-  else if(str_cmp(strpar(user_input, param, 0), "div")) {
+  else if(str_cmp(strpar(user_input, param, 0), "div") || str_cmp(strpar(user_input, param, 0), "/")) {
     int div_param1 = strcint(strpar(user_input, param, 1));
     int div_param2 = strcint(strpar(user_input, param, 2));
     printf("%d\n", (div_param1 / div_param2));
-  }
-  // DIDN'T RECOGNIZE THE COMMAND
-  else {
+
+  } else { // COMMAND NOT RECOGNIZED
     printf("\"%s\" is not recognized by Drill\n", strpar(user_input, param, 0));
   }
 
