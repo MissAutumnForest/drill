@@ -1,5 +1,6 @@
 # drill
 Multi-Paradigm Programming Language
+
 Core development team: Timothy Peacock (staticinteger), Tanner Steele (tjsteele)
 
 ## Overview
