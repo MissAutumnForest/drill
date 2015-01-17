@@ -35,19 +35,19 @@ int interpret(int keep_running) {
     printf("%d\n", (add_param1 + add_param2));
   }
 
-  // SUB COMMAND
+  // SUBTRACTION COMMAND
   else if(str_cmp(strpar(user_input, param, 0), "sub") || str_cmp(strpar(user_input, param, 0), "-")) {
     int sub_param1 = strcint(strpar(user_input, param, 1));
     int sub_param2 = strcint(strpar(user_input, param, 2));
     printf("%d\n", (sub_param1 - sub_param2));
   }
-  // MULT COMMAND
+  // MULTIPLICATION COMMAND
   else if(str_cmp(strpar(user_input, param, 0), "mult") || str_cmp(strpar(user_input, param, 0), "*")) {
     int mult_param1 = strcint(strpar(user_input, param, 1));
     int mult_param2 = strcint(strpar(user_input, param, 2));
     printf("%d\n", (mult_param1 * mult_param2));
   }
-  // DIV COMMAND
+  // DIVISION COMMAND
   else if(str_cmp(strpar(user_input, param, 0), "div") || str_cmp(strpar(user_input, param, 0), "/")) {
     int div_param1 = strcint(strpar(user_input, param, 1));
     int div_param2 = strcint(strpar(user_input, param, 2));
