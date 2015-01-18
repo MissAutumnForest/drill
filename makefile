@@ -1,19 +1,67 @@
-# ---- Terminal Output legend ----
-# [C] - Compile and Assemble.
-# [L] - Linking objects.
-# [G] - Generating/Creating.
-# [R] - Removing/Deleting.
+# ██████╗ ██████╗ ██╗██╗     ██╗
+# ██╔══██╗██╔══██╗██║██║     ██║
+# ██║  ██║██████╔╝██║██║     ██║
+# ██║  ██║██╔══██╗██║██║     ██║
+# ██████╔╝██║  ██║██║███████╗███████╗
+# ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝╚══════╝
+# Drill Chuck (Shell) - Alpha V0.0.1 
 
+# Our compiler.
 CC=@gcc
+
+# Flags for compile/assemble.
 CFLAGS=-c
 
-all: normal
+# Output name
+COUT=drill
 
-static: buildcheck main.o string.o interpreter.o
-	$(CC) -static -o ./build/drill ./obj/main.o ./obj/string.o ./obj/interpreter.o
+######################
+# Main build commands.
+######################
 
-normal: buildcheck main.o string.o interpreter.o
-	$(CC) -o ./build/main ./obj/main.o ./obj/string.o ./obj/interpreter.o
+#Default make command.
+all: norm
+
+# Static build (All libraries are compiled in).
+static: fullstatic # Compiling using full only temp, till I fix linking
+
+# Normal build.
+norm: fullnorm # Compiling using full only temp, till I fix linking
+
+
+#########################################################
+# Full build (Compiles and Links everything all at once).
+#########################################################
+# Static link (All libraries are compiled in).
+fullstatic: buildcheck
+	@echo "[FCL] Compiling all"
+	$(CC) -static ./src/main.c -o ./build/$(COUT)
+
+# Normal link.
+fullnorm: buildcheck
+	@echo "[FCL] Compiling all"
+	$(CC) ./src/main.c -o ./build/$(COUT)
+
+
+############################
+# Link all the source files.
+############################
+# Static link (All libraries are compiled in).
+staticlink: buildcheck main.o string.o interpreter.o
+	@echo "[L] - Linking..."
+	$(CC) -static -o ./build/$(COUT) \
+		./obj/string.o \
+		./obj/interpreter.o \
+		./obj/main.o
+
+# Normal link.
+normlink: buildcheck main.o string.o interpreter.o
+	@echo "[L] - Linking..."
+	$(CC) -o ./build/$(COUT) \
+		./obj/string.o \
+		./obj/interpreter.o \
+		./obj/main.o
+
 
 ######################################
 # Compile each source to object files.
@@ -65,7 +113,75 @@ clean: cleanobj cleanbuild
 ############################
 # Test/Run the program
 run:
-	./build/main
+	@echo "[E] Running \"$(COUT)\""
+	@./build/$(COUT)
 
-# Build & Run the program
-brun: normal run
+# Build & Run the program (compile then link).
+brun: norm run
+
+# Build & Run the program (compile/link all files at once.).
+fullbrun: fullnorm run
+
+###########
+# MAKE HELP
+###########
+help:
+	@echo
+	@echo
+	@echo "██████╗ ██████╗ ██╗██╗     ██╗     "
+	@echo "██╔══██╗██╔══██╗██║██║     ██║     "
+	@echo "██║  ██║██████╔╝██║██║     ██║     "
+	@echo "██║  ██║██╔══██╗██║██║     ██║     "
+	@echo "██████╔╝██║  ██║██║███████╗███████╗"
+	@echo "╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝╚══════╝"
+	@echo "Drill Chuck (Shell) - Alpha V0.0.1 "
+	@echo
+	@echo "###################"
+	@echo "#### CORE TEAM ####"
+	@echo "###################"
+	@echo
+	@echo "Timothy Peacock - staticinteger <staticinteger@gmail.com>"
+	@echo "Tanner Steele   - tjsteele"
+	@echo
+	@echo "############ Terminal Output legend #############"
+	@echo "# [C]    - Compile and Assemble.                #"
+	@echo "# [L]    - Linking objects.                     #"
+	@echo "# [FCL]  - Compile/Link all files at once.      #"
+	@echo "# [G]    - Generating/Creating.                 #"
+	@echo "# [R]    - Removing/Deleting.                   #"
+	@echo "# [E]    - Executing a script.                  #"
+	@echo "#################################################"
+	@echo
+	@echo
+	@echo "########################"
+	@echo "#### Build Commands ####"
+	@echo "########################"
+	@echo
+	@echo "MAKE            - Compiles all source."
+	@echo
+	@echo "MAKE NORM       - Same as MAKE."
+	@echo "MAKE STATIC     - Same as MAKE NORM but compiles statically."
+	@echo
+	@echo "MAKE FULLNORM   - Compiles/Links all source at once (No object files)."
+	@echo "MAKE FULLSTATIC - Same as MAKE FULLNORM but compiles statically."
+	@echo
+	@echo
+	@echo "###############################"
+	@echo "#### Housekeeping Commands ####"
+	@echo "###############################"
+	@echo
+	@echo "MAKE CLEAN      - Removes \"obj\" & \"build\" folder and all contents."
+	@echo
+	@echo "MAKE CLEANOBJ   - Removes the \"obj\" folder and all contents."
+	@echo "MAKE CLEANBUILD - Removes the \"build\" folder and all contents."
+	@echo
+	@echo
+	@echo "###################################"
+	@echo "#### Testing/Running Functions ####"
+	@echo "###################################"
+	@echo
+	@echo "MAKE RUN - Runs Drill."
+	@echo "MAKE BRUN - Builds and runs Drill."
+	@echo "MAKE FULLBRUN - Builds using FULLNORM and runs Drill."
+	@echo
+	@echo

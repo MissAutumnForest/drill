@@ -29,29 +29,29 @@ int interpret(int keep_running) {
 
   // ADD COMMAND
   else if(cmd_cmp("add", user_input) || cmd_cmp("+", user_input)) {
-    int add_param1 = stripar(param, 1);
-    int add_param2 = stripar(param, 2);
+    int add_param1 = stripar(user_input, 1);
+    int add_param2 = stripar(user_input, 2);
     printf("%d\n", (add_param1 + add_param2));
   }
 
   // SUBTRACTION COMMAND
   else if(cmd_cmp("sub", user_input) || cmd_cmp("-", user_input)) {
-    int sub_param1 = stripar(param, 1);
-    int sub_param2 = stripar(param, 2);
+    int sub_param1 = stripar(user_input, 1);
+    int sub_param2 = stripar(user_input, 2);
     printf("%d\n", (sub_param1 - sub_param2));
   }
 
   // MULTIPLICATION COMMAND
-  else if(cmd_cmp("multi", user_input) || cmd_cmp("*", user_input)) {
-    int mult_param1 = stripar(param, 1);
-    int mult_param2 = stripar(param, 2);
+  else if(cmd_cmp("mul", user_input) || cmd_cmp("*", user_input)) {
+    int mult_param1 = stripar(user_input, 1);
+    int mult_param2 = stripar(user_input, 2);
     printf("%d\n", (mult_param1 * mult_param2));
   }
 
   // DIVISION COMMAND
-  else if(cmd_cmp("div", user_input) || cmd_cmd("/", user_input)) {
-    int div_param1 = stripar(param, 1);
-    int div_param2 = stripar(param, 2);
+  else if(cmd_cmp("div", user_input) || cmd_cmp("/", user_input)) {
+    int div_param1 = stripar(user_input, 1);
+    int div_param2 = stripar(user_input, 2);
     printf("%d\n", (div_param1 / div_param2));
   }
 
