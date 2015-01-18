@@ -16,5 +16,5 @@ Drill is a "Multi-Paradigm Programming Language" that can be both compiled and i
 4. "On the fly" operating systems
 
 ## Core Development Team
-Timothy Peacock (staticinteger)
-Tanner Steele (tjsteele)
+1. Timothy Peacock (staticinteger)
+2. Tanner Steele (tjsteele)
