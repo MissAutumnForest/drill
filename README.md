@@ -1,4 +1,11 @@
-# drill
+# ██████╗ ██████╗ ██╗██╗     ██╗
+# ██╔══██╗██╔══██╗██║██║     ██║
+# ██║  ██║██████╔╝██║██║     ██║
+# ██║  ██║██╔══██╗██║██║     ██║
+# ██████╔╝██║  ██║██║███████╗███████╗
+# ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝╚══════╝
+# Drill Chuck (Shell) - Alpha V0.0.1
+
 Multi-Paradigm Programming Language
 
 Core development team: Timothy Peacock (staticinteger), Tanner Steele (tjsteele)
