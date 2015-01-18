@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "string.h"
-#include "interpreter.h"
+int input_limit = 80;
+
+#include "string.c"
+#include "interpreter.c"
 
 /* #############################################
  * Code to run before entering the program loop.

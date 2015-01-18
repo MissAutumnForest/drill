@@ -58,13 +58,13 @@ int str_cmp(const char* str1, const char* str2) {
  * Copies nth parameter of a char pointer.
  * ---------------------------------------
  * -> char* str - Input char pointer.
- * -> char* out - Pointer to copy to.
  * -> int nth - Nth parameter to return.
- * <- char* out - Pointer copied to.
+ * <- char* out - Resulting parameter.
  * #######################################
  */
-char* strpar(const char* str, char* out, const int nth) {
+char* strpar(const char* str, const int nth) {
   int i, parc, delimc;
+  char* out = malloc(input_limit*sizeof(char));
 
   for(i = 0, parc = 0, delimc = 0; i < strlen(str); i++) {
     if(str[i] == ',') {
@@ -83,15 +83,39 @@ char* strpar(const char* str, char* out, const int nth) {
   return out;
 }
 
+/* ############################################################
+* Compares a char pointer with the base parameter of a command
+* ------------------------------------------------------------
+* -> char* cmd - Char pointer to compare with.
+* -> char* input - Char pointer to user input data.
+* <- int N/A - True if equal, else false.
+* ############################################################
+*/
+int cmd_cmp(const char* cmd, const char* input) {
+  return str_cmp(cmd, strpar(input, 0));
+}
+
 /* ############################################
- * Convert a char pointer into an integer type.
- * --------------------------------------------
- * -> char* str - char* to be converted.
- * <- long res - Resulting integer.
- * ############################################
- */
+* Convert a char pointer into an integer type.
+* --------------------------------------------
+* -> char* str - char* to be converted.
+* <- long res - Resulting integer.
+* ############################################
+*/
 long strcint(const char* str) {
   int num;
   char* ptr;
   return strtol(str, &ptr, 10);
+}
+
+/* #####################################################
+ * Copies nth parameter of a char pointer as an integer.
+ * -----------------------------------------------------
+ * -> char* str - Input char pointer.
+ * -> int nth - Nth parameter to return.
+ * <- int N/A - Resulting integer.
+ * #####################################################
+ */
+int stripar(const char* str, const int nth) {
+  return strcint(strpar(str, nth));
 }

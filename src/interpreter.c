@@ -1,4 +1,3 @@
-static int input_limit = 80;
 /* ###########################################
 * Interpret incomming commands from the user.
 * -------------------------------------------
@@ -23,38 +22,42 @@ int interpret(int keep_running) {
 
   // Check user input against various commands.
   // EXIT COMMAND
-  if(str_cmp(strpar(user_input, param, 0), "exit")) {
+  if(cmd_cmp("exit", user_input)) {
     printf("Exiting Drill Interpreter\n");
     keep_running = 0;
   }
 
   // ADD COMMAND
-  else if(str_cmp(strpar(user_input, param, 0), "add") || str_cmp(strpar(user_input, param, 0), "+")) {
-    int add_param1 = strcint(strpar(user_input, param, 1));
-    int add_param2 = strcint(strpar(user_input, param, 2));
+  else if(cmd_cmp("add", user_input) || cmd_cmp("+", user_input)) {
+    int add_param1 = stripar(param, 1);
+    int add_param2 = stripar(param, 2);
     printf("%d\n", (add_param1 + add_param2));
   }
 
   // SUBTRACTION COMMAND
-  else if(str_cmp(strpar(user_input, param, 0), "sub") || str_cmp(strpar(user_input, param, 0), "-")) {
-    int sub_param1 = strcint(strpar(user_input, param, 1));
-    int sub_param2 = strcint(strpar(user_input, param, 2));
+  else if(cmd_cmp("sub", user_input) || cmd_cmp("-", user_input)) {
+    int sub_param1 = stripar(param, 1);
+    int sub_param2 = stripar(param, 2);
     printf("%d\n", (sub_param1 - sub_param2));
   }
+
   // MULTIPLICATION COMMAND
-  else if(str_cmp(strpar(user_input, param, 0), "mult") || str_cmp(strpar(user_input, param, 0), "*")) {
-    int mult_param1 = strcint(strpar(user_input, param, 1));
-    int mult_param2 = strcint(strpar(user_input, param, 2));
+  else if(cmd_cmp("multi", user_input) || cmd_cmp("*", user_input)) {
+    int mult_param1 = stripar(param, 1);
+    int mult_param2 = stripar(param, 2);
     printf("%d\n", (mult_param1 * mult_param2));
   }
-  // DIVISION COMMAND
-  else if(str_cmp(strpar(user_input, param, 0), "div") || str_cmp(strpar(user_input, param, 0), "/")) {
-    int div_param1 = strcint(strpar(user_input, param, 1));
-    int div_param2 = strcint(strpar(user_input, param, 2));
-    printf("%d\n", (div_param1 / div_param2));
 
-  } else { // COMMAND NOT RECOGNIZED
-    printf("\"%s\" is not recognized by Drill\n", strpar(user_input, param, 0));
+  // DIVISION COMMAND
+  else if(cmd_cmp("div", user_input) || cmd_cmd("/", user_input)) {
+    int div_param1 = stripar(param, 1);
+    int div_param2 = stripar(param, 2);
+    printf("%d\n", (div_param1 / div_param2));
+  }
+
+  // COMMAND NOT RECOGNIZED
+  else {
+    printf("\"%s\" is not recognized by Drill\n", strpar(user_input, 0));
   }
 
   return keep_running;
