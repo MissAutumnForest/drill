@@ -52,6 +52,11 @@ int interpret(int keep_running) {
   else if(cmd_cmp("div", user_input) || cmd_cmp("/", user_input)) {
     int div_param1 = stripar(user_input, 1);
     int div_param2 = stripar(user_input, 2);
+    // TEMPORARY OVERHEAD DIVISON BY ZERO PROTECTION
+    if(div_param2 == 0) {
+      printf("ERROR! Divison by zero detected.")
+      break;
+    }
     printf("%d\n", (div_param1 / div_param2));
   }
 
