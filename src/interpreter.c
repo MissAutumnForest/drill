@@ -18,7 +18,7 @@ int interpret(int keep_running) {
   // Strip newline at the end of user input.
   user_input[strlen(user_input) - 1] = '\0';
   // Paramize our input to process as a command.
-  user_input = str_paramize(user_input);
+  //user_input = str_paramize(user_input);
 
   // Check user input against various commands.
   // EXIT COMMAND
