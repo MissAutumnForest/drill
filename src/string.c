@@ -26,7 +26,7 @@ char* strpar(const char* str, const int nth) {
     char* out = malloc(input_limit*sizeof(char));
 
     for(i = 0, parc = 0, delimc = 0; i < strlen(str); i++) {
-        if(str[i] == '(' || str[i] == ' ' || str[i] == ',' || str[i] == '\0') {
+        if(str[i] == '(' || str[i] == ' ' || str[i] == ',') {
             if(delimc == nth) {
                 out[parc] = '\0';
                 return out;
