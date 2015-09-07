@@ -52,8 +52,8 @@ int interpret(int keep_running) {
     int div_param2 = stripar(user_input, 2);
     // TEMPORARY OVERHEAD DIVISON BY ZERO PROTECTION
     if(div_param2 == 0) {
-      printf("ERROR! Divison by zero detected.")
-      break;
+      printf("ERROR! Divison by zero detected.");
+      return 0;
     }
     printf("%d\n", (div_param1 / div_param2));
   }
